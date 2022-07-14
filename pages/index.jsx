@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
-  const [location, setLocation] = useState("");
-  const getlocation = () => {
+  const [location, setLocation] = useState({ lat: "", long: "" });
+  const getCurrentLocation = async () => {
     navigator.geolocation.getCurrentPosition(function (position) {
-      console.log("Latitude is :", position.coords.latitude);
-      console.log("Longitude is :", position.coords.longitude);
+      setLocation({
+        lat: position.coords.latitude,
+        long: position.coords.longitude,
+      });
     });
   };
-  return <button onClick={getlocation}>Location</button>;
+  return (
+    <>
+      <Navbar />
+    </>
+  );
 }
