@@ -1,7 +1,12 @@
-import '../styles/globals.css'
+import { AqiProvider } from "../context/aqiContext";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <AqiProvider>
+      <Component {...pageProps} />
+    </AqiProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
