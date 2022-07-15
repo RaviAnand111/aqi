@@ -24,16 +24,18 @@ function AqiBar({ val, bound, wid, what }) {
       <CircularProgressbar
         value={val}
         maxValue={bound[6]}
-        text={what + ": " + val}
+        text={val}
         styles={buildStyles({
           pathColor: `${col}`,
           textColor: "#f88",
           pathTransitionDuration: 1.5,
           trailColor: "#d6d6d6",
           backgroundColor: "#3e98c7",
+          textSize: "1.5rem",
         })}
         strokeWidth={3}
       />
+      <div className="flex justify-center text-2xl">{what}</div>
     </div>
   );
 }

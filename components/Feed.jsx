@@ -40,7 +40,7 @@ function Feed() {
         <div className="flex items-center justify-center space-x-5 mt-3">
           <AqiBar
             wid={"8rem"}
-            what={"co"}
+            what={"CO"}
             val={latestData.co}
             bound={boundaries.co}
           />
