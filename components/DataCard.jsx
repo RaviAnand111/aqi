@@ -20,10 +20,10 @@ function DataCard({ val, bound, what }) {
   return (
     <div
       style={{ backgroundColor: col }}
-      className="w-28 h-28 rounded-xl text-black font-bold font-mono m-4"
+      className="w-[8rem] md:w-44 lg:w-32 xl:w-36 h-28 md:h-32 lg:h-[7.5rem] rounded-xl md:rounded-t-2xl md:text-2xl text-black font-bold font-mono mt-4 mb-4 md:mt-6 md:mb-6 lg:mt-4"
     >
-      <div className="pl-2 pt-2">{what}</div>
-      <div className="flex items-center font-bold justify-center pt-5">
+      <div className="pl-2 pt-2 md:pl-3 md:pt-3">{what}</div>
+      <div className="flex items-center font-bold justify-center pt-5 md:pt-4 lg:pt-3">
         {val}
       </div>
     </div>
