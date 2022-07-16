@@ -46,7 +46,7 @@ export const AqiProvider = ({ children }) => {
         co2: 400,
         pm2To10: 98,
         humidity: 22,
-        temp: 33,
+        temp: 39,
         time: "Fri Jul 15 2022 15:43:03 GMT+0530 (India Standard Time)",
       });
     });
@@ -66,7 +66,7 @@ export const AqiProvider = ({ children }) => {
       co2: 400,
       pm2To10: 98,
       humidity: 22,
-      temp: 33,
+      temp: 39,
       time: "Fri Jul 15 2022 15:43:03 GMT+0530 (India Standard Time)",
     });
   };

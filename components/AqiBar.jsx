@@ -8,7 +8,7 @@ function AqiBar({ val, bound, wid, what }) {
     if (val < bound[1]) {
       setCol("#39FF14");
     } else if (bound[1] < val <= bound[2]) {
-      setCol("#FFFF00");
+      setCol("#FFDB58");
     } else if (bound[2] < val <= bound[3]) {
       setCol("#FF5F1F");
     } else if (bound[3] < val <= bound[4]) {
@@ -27,13 +27,13 @@ function AqiBar({ val, bound, wid, what }) {
         text={val}
         styles={buildStyles({
           pathColor: `${col}`,
-          textColor: "#f88",
+          textColor: col,
           pathTransitionDuration: 1.5,
-          trailColor: "#d6d6d6",
-          backgroundColor: "#3e98c7",
+          trailColor: "#a3a2a2",
+          backgroundColor: "",
           textSize: "1.5rem",
         })}
-        strokeWidth={3}
+        strokeWidth={7}
       />
       <div className="flex justify-center text-2xl">{what}</div>
     </div>

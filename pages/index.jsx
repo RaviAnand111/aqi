@@ -4,8 +4,10 @@ import Navbar from "../components/Navbar";
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <Feed />
+      <div className="h-screen ">
+        <Navbar />
+        <Feed />
+      </div>
     </>
   );
 }
