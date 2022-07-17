@@ -2,18 +2,19 @@
 
 import connectMongo from "../../utils/connectDB";
 import Aqi from "../../models/aqiModel";
+import { format} from 'timeago.js';
 
 export default async function handler(req, res) {
 
-  const vari = req.body;
-
-  console.log("connecting to mongo");
   await connectMongo();
   console.log("connected to mongo successfully");
+  
+  if(req.method === 'GET'){
 
-  console.log("Creating document");
-  const aqi = await Aqi.create(req.body);
-  console.log("Document Created")   
+      const alldata = await Aqi.find({latitude: req.body.latitude, longitude: req.body.longitude}).sort({time:1}).limit(1);
+      const timeago = format(alldata[0].time);
 
-  res.json({aqi})
+      res.json({time: timeago});
+  }
+
 }
