@@ -1,23 +1,19 @@
 import mongoose, {Schema, model, models} from "mongoose";
 
 const aqiSchema = new mongoose.Schema({
-
-    CO_Value : Number, 
-    Humidity : {
-        Percent : Number
-    },
-    Temperature : {
-        Celcius: Number,
-        Fahrenheit: Number,
-    }, 
-    Heat_Index:  Number, 
-    AirQuality: {
-        PPM: Number
-    }, 
-    Latitude: Number, 
-    Longitude: Number,
-    LGP_Status: Number,
-    Date: Date,
+    
+    latitude: Number,
+    longitude: Number,
+    aqi: Number,
+    lpg: Number,
+    co: Number,
+    nh3: Number,
+    no: Number,
+    co2: Number,
+    pm2To10: Number,
+    humidity: Number,
+    temp: Number,
+    time: Date,
 });
 
 const Aqi = models.Aqi || model('Aqi', aqiSchema)

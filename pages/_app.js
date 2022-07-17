@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { AqiProvider } from "../context/aqiContext";
 import "../styles/globals.css";
 
