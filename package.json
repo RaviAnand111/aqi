@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "india-pincode-lookup": "^1.0.3",
+    "mongodb": "^4.8.0",
     "mongoose": "^6.4.4",
     "next": "12.2.2",
     "pincode-lat-long": "^1.0.3",
@@ -17,7 +18,8 @@
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
-    "tailwind-scrollbar-hide": "^1.1.7"
+    "tailwind-scrollbar-hide": "^1.1.7",
+    "timeago.js": "^4.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
