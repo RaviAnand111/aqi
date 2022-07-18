@@ -24,7 +24,7 @@ function Navbar() {
         className={`flex justify-between sticky top-0 z-10 h-14 w-full backdrop-filter backdrop-blur-md`}
       >
         <div
-          className="text-3xl md:text-4xl items-center flex font-bold cursor-pointer ml-8"
+          className="text-3xl md:text-4xl items-center flex font-bold cursor-pointer ml-6"
           onClick={() => {
             router.push("/");
           }}
@@ -32,9 +32,9 @@ function Navbar() {
           aqi
         </div>
         <div className="flex">
-          <div className="flex ml-2 items-center ">
+          <div className="flex ml-1 items-center ">
             <BiCurrentLocation
-              className="cursor-pointer md:text-xl  text-[#1d9bf0]"
+              className="cursor-pointer md:text-lg  text-[#1d9bf0]"
               onClick={getCurrentLocation}
             />
           </div>
@@ -44,7 +44,7 @@ function Navbar() {
               <input
                 value={pin}
                 type="number"
-                className="w-[4.5rem] md:w-20 h-full outline-none bg-transparent text-lg text-center"
+                className="w-[4rem] md:w-20 h-full outline-none bg-transparent text-lg text-center"
                 placeholder="Pincode"
                 onChange={(e) => {
                   setPin(e.target.value);
@@ -71,7 +71,7 @@ function Navbar() {
               </button>
             </form>
           </div>
-          <div className="flex items-center text-xl m-3 cursor-pointer">
+          <div className="flex items-center text-xl m-1 md:m-3 cursor-pointer">
             {!darkMode ? (
               <BsMoon
                 onClick={() => {
