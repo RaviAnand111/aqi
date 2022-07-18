@@ -5,13 +5,13 @@ function DataCard({ val, bound, what }) {
   useEffect(() => {
     if (val < bound[1]) {
       setCol("#39FF14");
-    } else if (bound[1] < val <= bound[2]) {
+    } else if (bound[1] < val && val <= bound[2]) {
       setCol("#FFDB58");
-    } else if (bound[2] < val <= bound[3]) {
+    } else if (bound[2] < val && val <= bound[3]) {
       setCol("#FF5F1F");
-    } else if (bound[3] < val <= bound[4]) {
+    } else if (bound[3] < val && val <= bound[4]) {
       setCol("#FF3131");
-    } else if (bound[4] < val <= bound[5]) {
+    } else if (bound[4] < val && val <= bound[5]) {
       setCol("#9D00FF");
     } else {
       setCol("#3D251E");

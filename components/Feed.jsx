@@ -9,7 +9,15 @@ import DataCard from "./DataCard";
 var pincodeDirectory = require("india-pincode-lookup");
 
 function Feed() {
-  const { area, setArea, pin, latestData, boundaries } = useContext(AqiContext);
+  const {
+    area,
+    setArea,
+    pin,
+    latestData,
+    boundaries,
+    fetchingLatestData,
+    location,
+  } = useContext(AqiContext);
   const [col, setCol] = useState("");
   useEffect(() => {
     if (latestData.temp < boundaries.temp[1]) {
@@ -35,16 +43,18 @@ function Feed() {
     ) {
       setCol("#F73718");
     } else {
-      setCol("blue");
+      setCol("red");
     }
-  }, [latestData.temp]);
+  }, [latestData]);
   useEffect(() => {
     setArea({
       office: pincodeDirectory.lookup(pin)[0].officeName + ", ",
       district: pincodeDirectory.lookup(pin)[0].districtName + ", ",
       state: pincodeDirectory.lookup(pin)[0].stateName,
     });
+    fetchingLatestData(location);
   }, []);
+
   return (
     <div>
       <div className="flex items-end pt-4">
@@ -58,7 +68,7 @@ function Feed() {
       <div className="pl-4 flex items-center md:pl-8 ">
         <BiTimeFive className="text-xl" />
         <div className="pl-2 md:pl-3 md:mt-2 font-mono text-lg">
-          3 hours ago
+          {latestData.duration}
         </div>
       </div>
       <div className="lg:flex lg:items-center lg:justify-center lg:space-x-8 xl:space-x-14">

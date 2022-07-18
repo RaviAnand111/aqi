@@ -6,19 +6,23 @@ export const AqiContext = createContext();
 export const AqiProvider = ({ children }) => {
   const [pin, setPin] = useState("110040");
   const [darkMode, setDarkMode] = useState(false);
-  const [location, setLocation] = useState({ long: "", lat: "" });
+  const [location, setLocation] = useState({
+    long: "77.089878",
+    lat: "28.834898",
+  });
   const [area, setArea] = useState({ office: "", district: "", state: "" });
   const [latestData, setLatestData] = useState({
-    aqi: 56,
-    lpg: 1,
-    co: 63,
+    aqi: 0,
+    lpg: 0,
+    co: 0,
     nh3: 0,
     no: 0,
     co2: 0,
-    pm2To10: 25,
+    pm2To10: 0,
     humidity: 0,
     temp: 0,
     time: "",
+    duration: "",
   });
   const boundaries = {
     aqi: [0, 51, 101, 151, 201, 301, 500],
@@ -37,38 +41,29 @@ export const AqiProvider = ({ children }) => {
         long: position.coords.longitude,
       });
       setArea({ office: "Your location", district: " ", state: " " });
-      setLatestData({
-        aqi: 144,
-        lpg: 1,
-        co: 62,
-        nh3: 201,
-        no: 22,
-        co2: 400,
-        pm2To10: 98,
-        humidity: 22,
-        temp: 39,
-        time: "Fri Jul 15 2022 15:43:03 GMT+0530 (India Standard Time)",
-      });
     });
   };
+
   const longLat = (event) => {
     event.preventDefault();
     setLocation({
       lat: pincode.getlatlong(pin).lat,
       long: pincode.getlatlong(pin).long,
     });
-    setLatestData({
-      aqi: 144,
-      lpg: 1,
-      co: 62,
-      nh3: 201,
-      no: 22,
-      co2: 400,
-      pm2To10: 98,
-      humidity: 22,
-      temp: 39,
-      time: "Fri Jul 15 2022 15:43:03 GMT+0530 (India Standard Time)",
-    });
+  };
+
+  const fetchingLatestData = async (location) => {
+    await fetch(`/api/${location.lat}/${location.long}`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setLatestData(data.data);
+        setLatestData((prevState) => ({
+          ...prevState,
+          duration: data.duration,
+        }));
+      });
   };
 
   return (
@@ -87,6 +82,7 @@ export const AqiProvider = ({ children }) => {
         latestData,
         setLatestData,
         boundaries,
+        fetchingLatestData,
       }}
     >
       {children}
