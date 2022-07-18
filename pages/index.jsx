@@ -8,9 +8,11 @@ export default function Home() {
   return (
     <>
       <div
-        className={`${darkMode ? "bg-[#15202b] text-white" : ""} select-none `}
+        className={`${
+          darkMode ? "bg-[#15202b] text-white" : ""
+        } select-none flex items-center justify-center `}
       >
-        <div className="xl:max-w-[1400px] xl:items-center xl:flex xl:flex-col ">
+        <div className="xl:max-w-[1400px]  ">
           <div>
             <Navbar />
             <Feed />
