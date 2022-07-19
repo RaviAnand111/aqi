@@ -20,47 +20,41 @@ function Feed() {
     loading,
   } = useContext(AqiContext);
   const [col, setCol] = useState("");
-  useEffect(
-    (latestData, boundaries) => {
-      if (latestData.temp < boundaries.temp[1]) {
-        setCol("#0000FF");
-      } else if (
-        boundaries.temp[1] < latestData.temp &&
-        latestData.temp <= boundaries.temp[2]
-      ) {
-        setCol("#5DCEAF");
-      } else if (
-        boundaries.temp[2] < latestData.temp &&
-        latestData.temp <= boundaries.temp[3]
-      ) {
-        setCol("#FFDB58");
-      } else if (
-        boundaries.temp[3] < latestData.temp &&
-        latestData.temp <= boundaries.temp[4]
-      ) {
-        setCol("#DC582A");
-      } else if (
-        boundaries.temp[4] < latestData.temp &&
-        latestData.temp <= boundaries.temp[5]
-      ) {
-        setCol("#F73718");
-      } else {
-        setCol("red");
-      }
-    },
-    [latestData]
-  );
-  useEffect(
-    (fetchingLatestData, pin, setArea) => {
-      setArea({
-        office: pincodeDirectory.lookup(pin)[0].officeName + ", ",
-        district: pincodeDirectory.lookup(pin)[0].districtName + ", ",
-        state: pincodeDirectory.lookup(pin)[0].stateName,
-      });
-      fetchingLatestData(location);
-    },
-    [location]
-  );
+  useEffect(() => {
+    if (latestData.temp < boundaries.temp[1]) {
+      setCol("#0000FF");
+    } else if (
+      boundaries.temp[1] < latestData.temp &&
+      latestData.temp <= boundaries.temp[2]
+    ) {
+      setCol("#5DCEAF");
+    } else if (
+      boundaries.temp[2] < latestData.temp &&
+      latestData.temp <= boundaries.temp[3]
+    ) {
+      setCol("#FFDB58");
+    } else if (
+      boundaries.temp[3] < latestData.temp &&
+      latestData.temp <= boundaries.temp[4]
+    ) {
+      setCol("#DC582A");
+    } else if (
+      boundaries.temp[4] < latestData.temp &&
+      latestData.temp <= boundaries.temp[5]
+    ) {
+      setCol("#F73718");
+    } else {
+      setCol("red");
+    }
+  }, [latestData]);
+  useEffect(() => {
+    setArea({
+      office: pincodeDirectory.lookup(pin)[0].officeName + ", ",
+      district: pincodeDirectory.lookup(pin)[0].districtName + ", ",
+      state: pincodeDirectory.lookup(pin)[0].stateName,
+    });
+    fetchingLatestData(location);
+  }, [location]);
 
   if (!latestData.duration) {
     return (
