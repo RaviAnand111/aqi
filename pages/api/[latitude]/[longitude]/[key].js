@@ -2,20 +2,30 @@ import connectMongo from "../../../../utils/connectDB";
 import AqiModel from "../../../../models/aqiModel";
 
 export default async function handler(req, res) {
-  if (req.method === "GET") {
-    await connectMongo();
+  try {
+    if (req.method === "GET") {
+      await connectMongo();
 
-    const last10daysdata = await AqiModel.find({
-      latitude: req.body.latitude,
-      longitude: req.body.longitude,
-    })
-      .sort({ time: 1 })
-      .limit(10);
+      // const last10daysdata = await AqiModel.find({
+      //   latitude: req.body.latitude,
+      //   longitude: req.body.longitude,
+      // })
+      //   .sort({ time: 1 })
+      //   .limit(10);
 
-    const values = [];
+      // const values = [];
 
-    last10daysdata.map(data => values.push(data[req.query.key]));
+      // last10daysdata.map(data => values.push(data[req.query.key]));
 
-    res.json(values);
+      const lastvalue = await AqiModel.find({
+        date: {
+          $gte: new Date(new Date().getTime() - 10 * 24 * 60 * 60 * 1000),
+        },
+      }).sort({ time: -1 });
+
+      res.send(lastvalue);
+    }
+  } catch (err) {
+    res.send("Error on the server");
   }
 }
