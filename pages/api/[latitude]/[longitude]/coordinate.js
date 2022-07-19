@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import connectMongo from "../../../utils/connectDB";
-import Aqi from "../../../models/aqiModel";
+import connectMongo from "../../../../utils/connectDB";
+import Aqi from "../../../../models/aqiModel";
 import { format } from "timeago.js";
 
 export default async function handler(req, res) {
