@@ -5,7 +5,8 @@ export const AqiContext = createContext();
 
 export const AqiProvider = ({ children }) => {
   const [pin, setPin] = useState("110040");
-  const [darkMode, setDarkMode] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [darkMode, setDarkMode] = useState(true);
   const [location, setLocation] = useState({
     long: "77.089878",
     lat: "28.834898",
@@ -42,6 +43,7 @@ export const AqiProvider = ({ children }) => {
       });
       setArea({ office: "Your location", district: " ", state: " " });
     });
+    console.log(location);
   };
 
   const longLat = (event) => {
@@ -53,6 +55,7 @@ export const AqiProvider = ({ children }) => {
   };
 
   const fetchingLatestData = async (location) => {
+    await setLoading(true);
     await fetch(`/api/${location.lat}/${location.long}`, {
       method: "GET",
     })
@@ -63,7 +66,8 @@ export const AqiProvider = ({ children }) => {
           ...prevState,
           duration: data.duration,
         }));
-      });
+      })
+      .then(setLoading(false));
   };
 
   return (
@@ -83,6 +87,7 @@ export const AqiProvider = ({ children }) => {
         setLatestData,
         boundaries,
         fetchingLatestData,
+        loading,
       }}
     >
       {children}

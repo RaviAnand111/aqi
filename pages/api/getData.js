@@ -1,7 +1,7 @@
 import connectMongo from "../../utils/connectDB";
 import AqiModel from "../../models/aqiModel";
 
-export default async function (req, res) {
+export default async function handler(req, res) {
   if (req.method === "GET") {
     await connectMongo();
 
