@@ -1,5 +1,5 @@
-import connectMongo from "../../utils/connectDB";
-import AqiModel from "../../models/aqiModel";
+import connectMongo from "../../../../utils/connectDB";
+import AqiModel from "../../../../models/aqiModel";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
@@ -12,6 +12,10 @@ export default async function handler(req, res) {
       .sort({ time: 1 })
       .limit(10);
 
-    res.json(last10daysdata);
+    const values = [];
+
+    last10daysdata.map(data => values.push(data[req.query.key]));
+
+    res.json(values);
   }
 }
