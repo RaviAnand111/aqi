@@ -1,5 +1,6 @@
 const pincode = require("pincode-lat-long");
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
+import dateFormat, { masks } from "dateformat";
 
 export const AqiContext = createContext();
 
@@ -12,6 +13,9 @@ export const AqiProvider = ({ children }) => {
     lat: "28.834898",
   });
   const [area, setArea] = useState({ office: "", district: "", state: "" });
+  const [aqi, setAqi] = useState([]);
+  const [temp, setTemp] = useState([]);
+  const [time, setTime] = useState([]);
   const [latestData, setLatestData] = useState({
     aqi: 0,
     lpg: 0,
@@ -56,7 +60,7 @@ export const AqiProvider = ({ children }) => {
 
   const fetchingLatestData = async (location) => {
     await setLoading(true);
-    await fetch(`/api/${location.lat}/${location.long}`, {
+    await fetch(`/api/${location.lat}/${location.long}/coordinate`, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -68,6 +72,17 @@ export const AqiProvider = ({ children }) => {
         }));
       })
       .then(setLoading(false));
+    await fetch(`/api/${location.lat}/${location.long}/data`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then(async (datas) => {
+        await datas.map((data, index) => {
+          aqi[index] = data.aqi;
+          temp[index] = data.temp;
+          time[index] = dateFormat(data.time, "fullDate");
+        });
+      });
   };
 
   return (
@@ -88,6 +103,9 @@ export const AqiProvider = ({ children }) => {
         boundaries,
         fetchingLatestData,
         loading,
+        aqi,
+        temp,
+        time,
       }}
     >
       {children}

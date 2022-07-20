@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         latitude: req.query.latitude,
         longitude: req.query.longitude,
       })
-        .sort({ time: 1 })
+        .sort({ time: -1 })
         .limit(1);
       const timeago = format(alldata[0].time);
       res.json({ data: alldata[0], duration: timeago });

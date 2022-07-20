@@ -53,7 +53,6 @@ function Feed() {
       district: pincodeDirectory.lookup(pin)[0].districtName + ", ",
       state: pincodeDirectory.lookup(pin)[0].stateName,
     });
-    fetchingLatestData(location);
   }, [location]);
 
   if (!latestData.duration) {
