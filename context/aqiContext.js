@@ -6,7 +6,6 @@ export const AqiContext = createContext();
 
 export const AqiProvider = ({ children }) => {
   const [pin, setPin] = useState("110040");
-  const [loading, setLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
   const [location, setLocation] = useState({
     long: "77.089878",
@@ -59,7 +58,6 @@ export const AqiProvider = ({ children }) => {
   };
 
   const fetchingLatestData = async (location) => {
-    await setLoading(true);
     await fetch(`/api/${location.lat}/${location.long}/coordinate`, {
       method: "GET",
     })
@@ -70,17 +68,16 @@ export const AqiProvider = ({ children }) => {
           ...prevState,
           duration: data.duration,
         }));
-      })
-      .then(setLoading(false));
+      });
     await fetch(`/api/${location.lat}/${location.long}/data`, {
       method: "GET",
     })
       .then((response) => response.json())
       .then(async (datas) => {
-        await datas.map((data, index) => {
+        datas.map((data, index) => {
           aqi[index] = data.aqi;
           temp[index] = data.temp;
-          time[index] = dateFormat(data.time, "fullDate");
+          time[index] = dateFormat(data.time, "dd");
         });
       });
   };
@@ -102,10 +99,12 @@ export const AqiProvider = ({ children }) => {
         setLatestData,
         boundaries,
         fetchingLatestData,
-        loading,
         aqi,
         temp,
         time,
+        setAqi,
+        setTime,
+        setTemp,
       }}
     >
       {children}

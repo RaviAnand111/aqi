@@ -22,7 +22,9 @@ export default function Home() {
           <div>
             <Navbar />
             <Feed />
-            <Graph time={time} temp={temp} aqi={aqi} />
+            <div className="p-2">
+              <Graph />
+            </div>
           </div>
         </div>
       </div>
