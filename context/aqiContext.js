@@ -1,17 +1,20 @@
 const pincode = require("pincode-lat-long");
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
+import dateFormat, { masks } from "dateformat";
 
 export const AqiContext = createContext();
 
 export const AqiProvider = ({ children }) => {
   const [pin, setPin] = useState("110040");
-  const [loading, setLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
   const [location, setLocation] = useState({
     long: "77.089878",
     lat: "28.834898",
   });
   const [area, setArea] = useState({ office: "", district: "", state: "" });
+  const [aqi, setAqi] = useState([]);
+  const [temp, setTemp] = useState([]);
+  const [time, setTime] = useState([]);
   const [latestData, setLatestData] = useState({
     aqi: 0,
     lpg: 0,
@@ -55,8 +58,7 @@ export const AqiProvider = ({ children }) => {
   };
 
   const fetchingLatestData = async (location) => {
-    await setLoading(true);
-    await fetch(`/api/${location.lat}/${location.long}`, {
+    await fetch(`/api/${location.lat}/${location.long}/coordinate`, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -66,8 +68,18 @@ export const AqiProvider = ({ children }) => {
           ...prevState,
           duration: data.duration,
         }));
-      })
-      .then(setLoading(false));
+      });
+    await fetch(`/api/${location.lat}/${location.long}/data`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then(async (datas) => {
+        datas.map((data, index) => {
+          aqi[index] = data.aqi;
+          temp[index] = data.temp;
+          time[index] = dateFormat(data.time, "dd");
+        });
+      });
   };
 
   return (
@@ -87,7 +99,12 @@ export const AqiProvider = ({ children }) => {
         setLatestData,
         boundaries,
         fetchingLatestData,
-        loading,
+        aqi,
+        temp,
+        time,
+        setAqi,
+        setTime,
+        setTemp,
       }}
     >
       {children}
