@@ -16,9 +16,11 @@ export default async function handler(req, res) {
       // last10daysdata.map(data => values.push(data[req.query.key]));
 
       const lastvalue = await AqiModel.find({
-        latitude: req.query.latitude,
-        longitude: req.query.longitude,
-        date: {
+
+        latitude: req.body.latitude,
+        longitude: req.body.longitude,
+      }).find({
+      date: {
           $gte: new Date(new Date().getTime() - 10 * 24 * 60 * 60 * 1000),
         },
       }).sort({ time: -1 });
